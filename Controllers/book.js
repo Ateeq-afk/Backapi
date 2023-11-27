@@ -75,6 +75,7 @@ const savepayment = async (req,res,next)=>{
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         body, h1, h2, h3, p, a, li {
           font-family: 'Poppins', sans-serif;
+          color: #000000 !important;
         }
         .content-block {
           background-color: #FFFFFF;
@@ -205,6 +206,7 @@ const savepayment = async (req,res,next)=>{
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         body, h1, h2, h3, p, a, li {
           font-family: 'Poppins', sans-serif;
+          color: #000000 !important;
         }
         .content-block {
           background-color: #FFFFFF;
