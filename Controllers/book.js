@@ -259,7 +259,7 @@ const savepayment = async (req,res,next)=>{
               <tr>
                 <td class="content-block">
                   <h2 class="title-yellow title-shadow">Yay!!! Your Booking is Confirmed</h2>
-                  <h2 class="title-yellow title-shadow">You are going to ${req.body.eventName || 'null'} .</h2>
+                  <h2 class="title-yellow title-shadow">You are going to ${req.body.eventName || 'null'}.</h2>
                   <p class="text-dark">Dear ${req.body.username},</p>
                   <p class="text-light">We are absolutely thrilled to confirm your booking and are excited to be an integral part of your upcoming journey to ${req.body.eventName || 'null'}. Thank you for choosing Backpackers United as your travel partner. Below, you will find the details of your reservation, along with some helpful information for your travel. </p>
                   <!-- Original Tour Details -->
