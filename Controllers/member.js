@@ -206,14 +206,8 @@ exports.savemember = async (req, res, next) => {
         subject: 'Your Backpackers United Travel Pass is Confirmed! Its Time to Travel!',
         html: userConfirmationEmail,
       };
-    
-      transporter.sendMail(mailOptions, (error) => {
-        if (error) {
-          console.error('Error sending user confirmation email:', error);
-        } else {
-          console.log('User confirmation email sent');
-        }
-      });
+      await transporter.sendMail(mailOptions);
+      console.log('User confirmation email sent');
       const recipients = ['info@backpackersunited.in', 'ateeq@backpackersunited.in', 'habeeb@backpackersunited.in'];
       const staffNotificationEmail = `
 <!DOCTYPE html>
@@ -293,13 +287,8 @@ exports.savemember = async (req, res, next) => {
     };
     
 
-    transporter.sendMail(adminMailOptions, (error) => {
-      if (error) {
-        console.error('Error sending admin notification email:', error);
-      } else {
-        console.log('Admin notification email sent');
-      }
-    });
+    await transporter.sendMail(adminMailOptions);
+    console.log('Admin notification email sent');
   
       res.status(200).json({ success: true });
     } catch (error) {

@@ -82,19 +82,19 @@ const savepayment = async (req,res,next)=>{
           padding: 20px;
         }
         .title-yellow {
-          color: #FCB418;
+          color: #FCB418 !important;
         }
         .title-shadow {
           text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
         .text-dark {
-          color: #333333;
+          color: #333333 !important;
         }
         .text-light {
-          color: #555555;
+          color: #555555 !important;
         }
         .link-blue {
-          color: #0066CC;
+          color: #0066CC !important;
           text-decoration: none;
         }
         .ul-disc {
@@ -187,13 +187,8 @@ const savepayment = async (req,res,next)=>{
     html: userConfirmationEmail,
   };
 
-  transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      console.error('Error sending user confirmation email:', error);
-    } else {
-      console.log('User confirmation email sent');
-    }
-  });
+  await transporter.sendMail(mailOptions);
+  console.log('User confirmation email sent');
 
   // Send emails to three different email addresses
   const recipients = ['info@backpackersunited.in', 'ateeq@backpackersunited.in', 'habeeb@backpackersunited.in'];
@@ -213,19 +208,19 @@ const savepayment = async (req,res,next)=>{
           padding: 20px;
         }
         .title-yellow {
-          color: #FCB418;
+          color: #FCB418 !important;
         }
         .title-shadow {
           text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
         .text-dark {
-          color: #333333;
+          color: #333333 !important;
         }
         .text-light {
-          color: #555555;
+          color: #555555 !important;
         }
         .link-blue {
-          color: #0066CC;
+          color: #0066CC !important;
           text-decoration: none;
         }
         .ul-disc {
@@ -312,13 +307,9 @@ const savepayment = async (req,res,next)=>{
     };
     
 
-    transporter.sendMail(adminMailOptions, (error) => {
-      if (error) {
-        console.error('Error sending admin notification email:', error);
-      } else {
-        console.log('Admin notification email sent');
-      }
-    });
+    await transporter.sendMail(adminMailOptions);
+    console.log('Admin notification email sent');
+
     res.status(200).json({ success: true });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
