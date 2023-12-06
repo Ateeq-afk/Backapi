@@ -4,6 +4,8 @@ const TrekSchema = new mongoose.Schema(
   {
     name: { type: String },
     urllink: {type: String},
+    metatitle: { type: String},
+    metades : { type: String},
     maintype: { type: String },
     statetype: { type: String },
     state: { type: String },

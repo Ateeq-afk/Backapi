@@ -3,6 +3,8 @@ const BlogSchema = new mongoose.Schema(
   {
     name: { type: String },
     urllink: { type: String },
+    metatitle: { type: String},
+    metades : { type: String},
     over: [String],
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trek' }],
     blogs : [{

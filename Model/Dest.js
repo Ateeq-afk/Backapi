@@ -3,6 +3,9 @@ const DestSchema = new mongoose.Schema(
   {
     name: { type: String },
     coverimage:  { type: String },
+    coverimagealt: {type: String},
+    metatitle: { type: String},
+    metades : { type: String},
     maintype: { type: String },
     urllink: { type: String },
     over: [String],
