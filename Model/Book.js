@@ -27,7 +27,7 @@ const BookSchema = new mongoose.Schema(
       return `${hours}:${minutes}`;
     },
   },
-  slecteddate: {
+  selecteddate: {
     type: String,
   },
   tickets:{
