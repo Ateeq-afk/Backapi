@@ -11,7 +11,7 @@ const Trek = require("../Model/Trek.js");
   }
 
   const tourTypes = ['grouptour', 'longtour', 'international', 'northindiatour'];
-  const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tmtrek'];
+  const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tntrek'];
   
   // Middleware function to get tours by name
   const getTourByName = async (req, res) => {

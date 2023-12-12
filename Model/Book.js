@@ -71,7 +71,13 @@ const BookSchema = new mongoose.Schema(
     },
     razorpayPaymentId: {
         type: String, 
-    }
+    },
+    phonepaytransactionid :{
+      type: String, 
+  },
+  status: {
+    type: String, 
+  }
   },
   { timestamps: true }
 );

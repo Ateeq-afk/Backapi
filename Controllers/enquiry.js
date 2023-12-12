@@ -2,8 +2,8 @@ const Enq = require("../Model/Enquiry.js");
 
 const postEnquiry = async (req, res, next) => {
     try {
-        const { name, email, phone, password, message, callback } = req.body;
-        const newEnquiry = new Enq({ name, email, phone, password, message, callback });
+        const { name, email, phone, password, message, callback, source } = req.body;
+        const newEnquiry = new Enq({ name, email, phone, password, message, callback, source });
         await newEnquiry.save();
         res.status(201).send(newEnquiry);
     } catch (error) {

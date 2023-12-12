@@ -50,7 +50,7 @@ app.use("/uploads", (req, res, next) => {
 
 app.use("/trek", TrekRoute);
 app.use("/auth",UserRoute)
-app.use("/book",BookRoute );
+app.use("/api/v1",BookRoute );
 app.use("/dest", DestRoute);
 app.use("/member", MemberRoute);
 app.use("/blog", BlogRoute);

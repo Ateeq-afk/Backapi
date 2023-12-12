@@ -117,7 +117,7 @@ const savepayment = async (req,res,next)=>{
                   <![endif]-->
                   <div style="background-image: url('path-to-your-background-image.jpg'); background-color: #333333; background-position: center; background-repeat: no-repeat; background-size: cover; padding: 40px; text-align: center; color: #333333;">
         <!-- Header with Background Image -->
-        <h1 style="margin: 0; font-family: poppins, sans-serif; color: #FCB418;">BACKPACKERS UNITED</h1>
+        <h1 style="margin: 0; font-family: poppins, sans-serif; color: #FCB418 !important;">BACKPACKERS UNITED</h1>
     </div>
                   <!--[if gte mso 9]>
                     </v:textbox>
@@ -243,7 +243,7 @@ const savepayment = async (req,res,next)=>{
                   <![endif]-->
                   <div style="background-image: url('path-to-your-background-image.jpg'); background-color: #333333; background-position: center; background-repeat: no-repeat; background-size: cover; padding: 40px; text-align: center; color: #333333;">
         <!-- Header with Background Image -->
-        <h1 style="margin: 0; font-family: poppins, sans-serif; color: #FCB418;">BACKPACKERS UNITED</h1>
+        <h1 style="margin: 0; font-family: poppins, sans-serif; color: #FCB418 !important;">BACKPACKERS UNITED</h1>
     </div>
                   <!--[if gte mso 9]>
                     </v:textbox>
