@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const TrekRoute = require("./Routes/Trek.js");
 const UserRoute = require("./Routes/User.js");
 const BookRoute = require("./Routes/Book.js");
+const BookbRoute = require("./Routes/Booka.js");
 const DestRoute = require("./Routes/Dest.js");
 const MemberRoute = require("./Routes/Member.js");
 const BlogRoute = require("./Routes/Blog.js");
@@ -51,6 +52,7 @@ app.use("/uploads", (req, res, next) => {
 app.use("/trek", TrekRoute);
 app.use("/auth",UserRoute)
 app.use("/book",BookRoute );
+app.use("/bookb",BookbRoute);
 app.use("/dest", DestRoute);
 app.use("/member", MemberRoute);
 app.use("/blog", BlogRoute);
