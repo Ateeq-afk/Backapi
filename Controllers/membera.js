@@ -60,16 +60,18 @@ const memberWebhook = async (req, res) => {
                 const orderId = req.body.payload.payment.entity.order_id;
 
                 // Update the payment status in the database
-                const updatedMemberPayment = await Member.findOneAndUpdate(
-                    { razorpayOrderId: orderId },
+                await Member.findOneAndUpdate(
+                    { razorpayOrderId: orderId }, 
                     { status: 'successful', razorpayPaymentId: paymentId },
                     { new: true }
                 );
+                // Retrieve payment details from the database
+                const MemberPayment = await Member.findOne({ razorpayOrderId: orderId });
 
                 // Retrieve updated payment details from the database
-                if (updatedMemberPayment) {
+                if (MemberPayment) {
                     // Send confirmation email or perform other actions
-                    sendConfirmationEmail(updatedMemberPayment);
+                    sendConfirmationEmail(MemberPayment);
                     res.status(200).json({ status: 'ok' });
                 } else {
                     // Handle case where payment details are not found
