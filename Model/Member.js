@@ -62,6 +62,9 @@ gst: {
     },
     razorpayPaymentId: {
         type: String, 
+    },
+    status:{
+      type: String, 
     }
   },
   { timestamps: true }

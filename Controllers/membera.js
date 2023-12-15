@@ -24,6 +24,7 @@ const initiatememberpayment = async (req, res, next) => {
         // Create a record in the database with status 'pending'
         const newMemberPayment = new Member({
             memberId,
+            status: 'pending',
             title: req.body.title,
             passtype: req.body.passtype,
             activationdate: req.body.activationdate,
