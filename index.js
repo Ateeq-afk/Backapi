@@ -7,6 +7,7 @@ const BookRoute = require("./Routes/Book.js");
 const BookbRoute = require("./Routes/Booka.js");
 const DestRoute = require("./Routes/Dest.js");
 const MemberRoute = require("./Routes/Member.js");
+const MemberaRoute = require("./Routes/Membera.js");
 const BlogRoute = require("./Routes/Blog.js");
 const EnqRoute = require("./Routes/Enquiry.js");
 const bodyParser = require("body-parser");
@@ -55,6 +56,7 @@ app.use("/book",BookRoute );
 app.use("/bookb",BookbRoute);
 app.use("/dest", DestRoute);
 app.use("/member", MemberRoute);
+app.use("/membera", MemberaRoute);
 app.use("/blog", BlogRoute);
 app.use("/enquiry", EnqRoute);
 

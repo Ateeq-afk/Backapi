@@ -1,14 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const Book = require('../Model/Book.js');
 const razorpay = require('../Middleware/razorpay.js');
-
-const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Initiate payment
 const initiatepayment = async (req, res) => {
