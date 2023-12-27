@@ -162,7 +162,7 @@ const updateDestById = async (req, res, next) => {
 // Function to find destinations by main type: south India
 const getDestinationsSouthIndia = async (req, res, next) => {
   try {
-    const destinations = await Dest.find({ maintype: 'southindia' });
+    const destinations = await Dest.find({ maintype: 'southindia' }).sort({ order: 1 });
     console.log('Destinations:', destinations);
     if (destinations.length === 0) {
       return res.status(404).json({ error: 'South Destination not found' });
@@ -176,7 +176,7 @@ const getDestinationsSouthIndia = async (req, res, next) => {
 // Function to find destinations by main type: north India
 const getDestinationsNorthIndia = async (req, res, next) => {
   try {
-    const destinations = await Dest.find({ maintype: 'northindia' });
+    const destinations = await Dest.find({ maintype: 'northindia' }).sort({ order: 1 });
     if (!destinations) {
       return res.status(404).json({ error: 'North Destination not found' });
     }
@@ -190,7 +190,7 @@ const getDestinationsNorthIndia = async (req, res, next) => {
 // Function to find destinations by main type: international
 const getDestinationsInternational = async (req, res, next) => {
   try {
-    const destinations = await Dest.find({ maintype: 'international' });
+    const destinations = await Dest.find({ maintype: 'international' }).sort({ order: 1 });
     if (!destinations) {
       return res.status(404).json({ error: 'International Destination not found' });
     }

@@ -12,7 +12,7 @@ const BookSchema = new mongoose.Schema(
         default: function () {
           const currentTime = new Date();
           const year = currentTime.getFullYear();
-          const month = (currentTime.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based, so we add 1
+          const month = (currentTime.getMonth() + 1).toString().padStart(2, '0'); 
           const day = currentTime.getDate().toString().padStart(2, '0');
           
           return `${year}-${month}-${day}`;

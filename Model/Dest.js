@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const DestSchema = new mongoose.Schema(
   {
     name: { type: String },
+    order: {type:Number},
     coverimage:  { type: String },
     coverimagealt: {type: String},
     metatitle: { type: String},
