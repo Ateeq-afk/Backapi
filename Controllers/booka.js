@@ -181,6 +181,8 @@ const sendConfirmationEmail = async (paymentDetails) => {
                   <p class="text-dark"><strong>Departure Date:</strong>${paymentDetails.selecteddate}</p>
                   <p class="text-dark"><strong>No of Tickets:</strong> ${paymentDetails.tickets}</p>
                   <p class="text-dark"><strong>Total Amount Paid:</strong>  ${paymentDetails.totalamount}</p>
+                  <p class="text-dark"><strong>GST:</strong> ${paymentDetails.gst}</p>
+${paymentDetails.tcs ? `<p class="text-dark"><strong>TCS:</strong> ${paymentDetails.tcs}</p>` : ''}
                   <p>Pending Amount (INR) (Inclusive of Payment Gateway Charges): ${paymentDetails.pendingamount || 'null'}</p>
                   <!-- Policy & Terms -->
                   <h3 class="text-dark" style="border-bottom: 2px solid #333; padding-bottom: 5px;">Policy & Terms</h3>
@@ -303,6 +305,8 @@ const sendConfirmationEmail = async (paymentDetails) => {
                   <p class="text-dark"><strong>With Transportation From Bangalore:  </strong> ${paymentDetails.withtransport || '0'} qty </p>
                   <p class="text-dark"><strong>  Without Transportation:  ${paymentDetails.withouttransport || '0'} </strong>  qty</p>
                   <p class="text-dark"><strong>Total Amount Paid:</strong>  ${paymentDetails.totalamount}</p>
+                  <p class="text-dark"><strong>GST:</strong> ${paymentDetails.gst}</p>
+                  ${paymentDetails.tcs ? `<p class="text-dark"><strong>TCS:</strong> ${paymentDetails.tcs}</p>` : ''}
                   <p>Pending Amount (INR) (Inclusive of Payment Gateway Charges): ${paymentDetails.pendingamount || 'null'}</p>
                   <!-- Policy & Terms -->
                   <h3 class="text-dark" style="border-bottom: 2px solid #333; padding-bottom: 5px;">Policy & Terms</h3>
