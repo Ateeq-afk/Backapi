@@ -30,6 +30,7 @@ const initiatepayment = async (req, res) => {
             email: req.body.email,
             source:req.body.source,
             gst: req.body.gst,
+            tcs: req.body.tcs,
             amount:req.body.amount,
             totalamount: req.body.totalamount,
             tickets: req.body.tickets,

@@ -66,6 +66,9 @@ const BookSchema = new mongoose.Schema(
     gst: {
         type: Number, 
     },
+    tcs:{
+      type: Number, 
+    },
     razorpayOrderId: {
         type: String, 
     },
