@@ -6,7 +6,7 @@ const razorpay = require('../Middleware/razorpay.js');
 // Initiate payment
 const initiatepayment = async (req, res) => {
     // Create an order with Razorpay
-    const amountInPaise = parseFloat(req.body.amount) * 100;
+    const amountInPaise = Math.round(parseFloat(req.body.amount) * 100);
     const options = {
         amount: amountInPaise, // amount in the smallest currency unit
         currency: "INR",
