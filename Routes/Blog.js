@@ -5,8 +5,8 @@ const { createBlog, getBlogByName, getBlogssall } = require('../Controllers/blog
 
 const router = express.Router();
 
-// router.post('/createblog', upload.fields([...Array.from({ length: 30 }, (_, i) => ({ name: `blogImage[${i}]` }))]), createBlog);
-router.post('/createblog', upload.single('file'), createBlog);
+router.post('/createblog', upload.fields([...Array.from({ length: 30 }, (_, i) => ({ name: `blogImage[${i}]` }))]), createBlog);
+// router.post('/createblog', upload.single('file'), createBlog);
 router.get('/:name', getBlogByName);
 router.get('/', getBlogssall);
 

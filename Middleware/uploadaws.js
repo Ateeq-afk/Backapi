@@ -1,28 +1,35 @@
-const aws = require('aws-sdk');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
+const { S3Client } = require('@aws-sdk/client-s3')
+const multer = require('multer')
+const multerS3 = require('multer-s3')
+const dotenv = require('dotenv');
+dotenv.config();
+// const app = express()
 
-const s3 = new aws.S3({
-    accessKeyId:"AKIAQ4K3CQ5H57COY7HD",
-    secretAccessKey: "aATNFrhbCAsNKI6XZTj+wocjV199y1uoDuyb5cSc",
-    region: 'eu-north-1'
+const REGION = process.env.REGION; // e.g. 'us-west-2'
+const ACCESS_KEY_ID = process.env.ACCESS_KEY;
+const SECRET_ACCESS_KEY = process.env.SECRET_KEY;
+
+const s3 = new S3Client({
+  region: REGION,
+  credentials: {
+    accessKeyId: ACCESS_KEY_ID,
+    secretAccessKey: SECRET_ACCESS_KEY,
+  },
 });
-
-
 const upload = multer({
     storage: multerS3({
-        s3: s3,
-        bucket: 'bpu-images-v1', // replace with your S3 bucket name
-        acl: 'public-read', // adjust the access control as needed
-        metadata: function (req, file, cb) {
-            cb(null, { fieldName: file.fieldname });
-        },
-        key: function (req, file, cb) {
-            const folder = 'uploads/'; // set your folder name
-            const filename = Date.now().toString() + '-' + file.originalname;
-            cb(null, folder + filename); // files will be saved in the 'uploads' folder
-        }
+      s3: s3,
+      bucket: 'bpu-images-v1',
+      metadata: function (req, file, cb) {
+        cb(null, { fieldName: file.fieldname });
+      },
+      key: function (req, file, cb) {
+        const filename = `${file.fieldname}-${file.originalname}`;
+        const fullPath = `uploads/${filename}`;
+        console.log("Uploading file to S3 with path: ", fullPath);
+        cb(null, fullPath);
+      }
     })
-});
-
-module.exports = { upload };
+  });
+  
+  module.exports = { upload };

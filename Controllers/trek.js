@@ -105,30 +105,40 @@ const Trek = require("../Model/Trek.js");
     const {
       name, amount,testimagealt, fromamount, maintype, urllink, statetype, reserveamount, for1, day,
       trektype, trektypename, level, levelname, service, servicename, state, statename,
-      expertpara, lead1name, lead1oc, lead1pimgalt, lead2name, lead2oc, lead2pimgalt,
-      itinerary, expectpara, expecthead1, expecthead1para, expecthead2, expecthead2para,
-      days, related, batch 
+      expertpara,itinerary, expectpara, expecthead1, expecthead1para, expecthead2, expecthead2para,
+      days, batch 
     } = req.body;
-    console.log(req.body.days);
-    console.log(req.body)
     // console.log(days);
-    if (!req.body.days) {
-      return res.status(400).send('Days data is missing');
-    }
+    // if (!req.body.days) {
+    //   return res.status(400).send('Days data is missing');
+    // }
     
-    let daysArray, relatedArray, batchArray;
+    let daysArray,batchArray;
 
-    try {
-      daysArray = JSON.parse(days);
-    } catch (error) {
-      return res.status(400).send('Invalid days data: ' + error.message);
+    if (typeof days === 'string') {
+      try {
+        daysArray = JSON.parse(days);
+      } catch (error) {
+        return res.status(400).send('Invalid days data: ' + error.message);
+      }
+    } else if (days instanceof Array) {
+      // If `days` is already an array, no need to parse it
+      daysArray = days;
+    } else {
+      // If `days` is neither a string nor an array, send an error response
+      return res.status(400).send('Invalid days data: Input is not a valid JSON string or array');
     }
+    // try {
+    //   daysArray = JSON.parse(days);
+    // } catch (error) {
+    //   return res.status(400).send('Invalid days data: ' + error.message);
+    // }
 
-    try {
-      relatedArray = JSON.parse(related);
-    } catch (error) {
-      return res.status(400).send('Invalid related data: ' + error.message);
-    }
+    // try {
+    //   relatedArray = JSON.parse(related);
+    // } catch (error) {
+    //   return res.status(400).send('Invalid related data: ' + error.message);
+    // }
 
     try {
       batchArray = JSON.parse(batch);
@@ -136,56 +146,64 @@ const Trek = require("../Model/Trek.js");
       // Ensure this error message is for batch, not a copy-paste error
       return res.status(400).send('Invalid batch data: ' + error.message);
     }
-    console.log(daysArray, relatedArray, batchArray);
+    console.log(daysArray,batchArray);
     const included = req.body.included instanceof Array ? req.body.included : [req.body.included];
     const notincluded = req.body.notincluded instanceof Array ? req.body.notincluded : [req.body.notincluded];
     const things = req.body.things instanceof Array ? req.body.things : [req.body.things];
     const over = req.body.over instanceof Array ? req.body.over : [req.body.over];
-    const relatedtreks = req.body.relatedtreks instanceof Array ? req.body.relatedtreks : [req.body.relatedtreks];
+    const relatedtreks = req.body.relatedtreks instanceof Array ? req.body.relatedtreks :  [];
     // Construct the Trek data from the request body
     const TrekData = {
       name, amount,testimagealt, fromamount, maintype, urllink, statetype, reserveamount, for1, day,
       trektype, trektypename, level, levelname, service, servicename, state, statename,
-      expertpara, lead1name, lead1oc, lead1pimgalt, lead2name, lead2oc, lead2pimgalt,
-      itinerary, expectpara, expecthead1, expecthead1para, expecthead2, expecthead2para,
+      expertpara,itinerary, expectpara, expecthead1, expecthead1para, expecthead2, expecthead2para,
       days: daysArray,
       included,
       notincluded,
       things,
       over,
-      related: relatedArray,
       batch:batchArray,
       relatedtreks
     };
+    if (TrekData.relatedtreks.length === 0) {
+      TrekData.relatedtreks = undefined; // or [] if it must be an array
+    }
 console.log("hey",TrekData )
-console.log("Parsed days data", TrekData.days);
 // daysArray.forEach((day, index) => {
 //   assignImageToDay(req.files, `days[${index}].image`, day);
 // });
     // Add images if they exist
-    function assignImageToField(files, fieldName, dataObject) {
-      if (files && files[fieldName]) {
-        // Handle single image
-        dataObject[fieldName] = files[fieldName][0].filename;
-      }
-    }
-    assignImageToField(req.files, 'testimage', TrekData);
-    assignImageToField(req.files, 'lead1pimg', TrekData);
-    assignImageToField(req.files, 'lead2pimg', TrekData);
-    
-    // Assign images to day images, assuming TrekData.days is an array
+    // function assignImageToField(files, fieldName, dataObject) {
+    //   if (files && files[fieldName]) {
+    //     // Handle single image
+    //     dataObject[fieldName] = files[fieldName][0].filename;
+    //   }
+    // }
+    // assignImageToField(req.files, 'testimage', TrekData);
     TrekData.days.forEach((day, index) => {
-      if(req.files && req.files[`dayImage[${index}]`]) {
-        day.image = req.files[`dayImage[${index}]`][0].filename;
+      if (req.files[`dayImage[${index}]`]) {
+        day.image = req.files[`dayImage[${index}]`][0].key.split('/')[1]; // Extracting the filename
       }
     });
     
+    // Assign image filename to 'testimage' field
+    if (req.files['testimage']) {
+      TrekData.testimage = req.files['testimage'][0].key.split('/')[1]; // Extracting the filename
+    }
+    // Assign images to day images, assuming TrekData.days is an array
+    
+    // TrekData.days.forEach((day, index) => {
+    //   if(req.files && req.files[`dayImage[${index}]`]) {
+    //     day.image = req.files[`dayImage[${index}]`][0].filename;
+    //   }
+    // });
+    console.log("images",req.files)
     // Assign images to related images, assuming TrekData.related is an array
-    TrekData.related.forEach((relatedItem, index) => {
-      if(req.files[`relatedImage[${index}]`]) {
-        relatedItem.rimage = req.files[`relatedImage[${index}]`][0].filename;
-      }
-    });
+    // TrekData.related.forEach((relatedItem, index) => {
+    //   if(req.files[`relatedImage[${index}]`]) {
+    //     relatedItem.rimage = req.files[`relatedImage[${index}]`][0].filename;
+    //   }
+    // });
 
     // Create a new Trek instance and save to the database
     const newTrek = new Trek(TrekData);
@@ -347,11 +365,7 @@ while (req.body.related && req.body.related[relatedIndex] ) {
   relatedIndex++;
   }
 
-
-
 console.log('Final TrekData.related:', TrekData.related);
-
-
 
 let batchIndex = 0;
 while (req.body.batch && req.body.batch[batchIndex] ) {
@@ -484,6 +498,19 @@ const getTreksTNTrek = async (req, res, next) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+const getEventCounts = async (req, res) => {
+  try {
+    const totalTours = await Trek.countDocuments({ maintype: { $in: tourTypes } });
+    const totalTreks = await Trek.countDocuments({ maintype: { $in: trekTypes } });
+
+    const totalEvents = totalTours + totalTreks;
+
+    res.status(200).json({ totalEvents });
+  } catch (error) {
+    res.status(500).json({ error: "Could not retrieve total events count" });
+  }
+};
+
 module.exports = {
     getTrek,
     getTour,
@@ -501,5 +528,6 @@ module.exports = {
     getTreksNorthIndiaTrek,
     getTreksKarnatakaTrek,
     getTreksKeralaTrek,
-    getTreksTNTrek
+    getTreksTNTrek,
+    getEventCounts
 }

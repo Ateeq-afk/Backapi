@@ -353,7 +353,26 @@ ${paymentDetails.tcs ? `<p class="text-dark"><strong>TCS:</strong> ${paymentDeta
   
   
   };
+  const getTodaysBookings = async (req, res) => {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
+  
+      const todaysBookings = await Book.find({
+        createdAt: { $gte: today },
+        status: 'successful',
+      });
+  
+      const totalTickets = todaysBookings.reduce((acc, booking) => acc + parseInt(booking.tickets), 0);
+  
+      res.status(200).json({ totalTickets });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Could not retrieve today's bookings" });
+    }
+  };
   module.exports = {
     initiatepayment,
-    webhook
+    webhook,
+    getTodaysBookings
   };

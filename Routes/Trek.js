@@ -1,8 +1,10 @@
 const express = require("express");
 const trekController = require("../Controllers/trek.js");
 const uploadMiddleware = require("../Middleware/upload.js");
+const { upload } = require('../Middleware/uploadaws.js');
 
 const router = express.Router();
+
 
 router.get("/main", trekController.getTreksMain);
 router.get("/trek", trekController.getTrek);
@@ -16,7 +18,9 @@ router.get('/karnatakatrek', trekController.getTreksKarnatakaTrek);
 router.get('/keralatrek', trekController.getTreksKeralaTrek);
 router.get('/tntrek', trekController.getTreksTNTrek);
 router.get("/", trekController.getTreksall);
-router.post("/createtrek", uploadMiddleware.upload.fields([
+router.get("/events", trekController.getEventCounts);
+// router.post("/createtrek",upload.single('testimage'),trekController.createTrek)
+router.post("/createtrek", upload.fields([
     { name: 'testimage' },
     { name: 'lead1pimg' },
     { name: 'lead2pimg' },
@@ -25,6 +29,18 @@ router.post("/createtrek", uploadMiddleware.upload.fields([
     // Similar for related images
     ...Array.from({ length: 3 }, (_, i) => ({ name: `relatedImage[${i}]` })),
 ]), trekController.createTrek);
+// router.post("/createtrek", upload.fields([
+//     { name: 'testimage' },
+//     { name: 'lead1pimg' },
+//     { name: 'lead2pimg' },
+//     // Repeat this pattern for as many days as you support, the example shows up to dayImage[9]
+//     ...Array.from({ length: 10 }, (_, i) => ({ name: `dayImage[${i}]` })),
+//     // Similar for related images
+//     ...Array.from({ length: 3 }, (_, i) => ({ name: `relatedImage[${i}]` })),
+// ]), (req, res) => {
+//     console.log(req.files);
+//     res.send("Files received");
+//   });
 router.patch("/updatetrek/:id", uploadMiddleware.upload.fields([
     { name: 'testimage' },
     { name: 'lead1pimg' },
