@@ -17,7 +17,7 @@ const Trek = require("../Model/Trek.js");
   const getTourByName = async (req, res) => {
     try {
       const linkName = req.params.name;
-      const tour = await Trek.findOne({ urllink: linkName, maintype: { $in: tourTypes } }).populate("relatedtreks")
+      const tour = await Trek.findOne({ urllink: linkName }).populate("relatedtreks")
       if (!tour) {
         return res.status(404).json({ error: "Tour not found" });
       }
@@ -31,7 +31,7 @@ const Trek = require("../Model/Trek.js");
    const getTrekByName = async (req, res) => {
     try {
       const linkName = req.params.name;
-      const trek = await Trek.findOne({  urllink: linkName, maintype: { $in: trekTypes } }).populate("relatedtreks")
+      const trek = await Trek.findOne({  urllink: linkName }).populate("relatedtreks")
       if (!trek) {
         return res.status(404).json({ error: "Trek not found" });
       }

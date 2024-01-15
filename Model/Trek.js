@@ -9,7 +9,7 @@ const TrekSchema = new mongoose.Schema(
     maintype: { type: String },
     statetype: { type: String },
     state: { type: String },
-    for1: {type: String },
+    for: {type: String },
     amount: {type: String},
     fromamount: { type: Number },
     withoutamount : {type: Number},
