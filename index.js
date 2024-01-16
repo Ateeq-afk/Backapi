@@ -10,7 +10,7 @@ const BlogRoute = require("./Routes/Blog.js");
 const EnqRoute = require("./Routes/Enquiry.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const axios = require('axios')
 
 
 const app = express();
@@ -75,3 +75,18 @@ app.use((err, req, res, next) => {
   app.get('/', (req, res) => {
     res.send('Hey this is my API running 🥳')
   })
+  app.get('/fetch-reviews', async (req, res) => {
+    try {
+        const response = await axios.get('https://maps.googleapis.com/maps/api/place/details/json', {
+            params: {
+                placeid: 'ChIJq4TTOeYVrjsRpIFDsBNjFqQ',
+                key: process.env.GOOGLE_KEY,
+                fields: 'reviews'
+            }
+        });
+        res.send(response.data);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('Error fetching reviews');
+    }
+});
