@@ -76,7 +76,7 @@ const webhook = async (req, res) => {
 
                 // Check if paymentDetails exist, then send email
                 if (paymentDetails) {
-                    sendConfirmationEmail(paymentDetails);
+                   await sendConfirmationEmail(paymentDetails);
                     res.status(200).json({ status: 'ok' });
                 } else {
                     // Handle case where payment details are not found

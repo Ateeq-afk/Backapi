@@ -72,7 +72,7 @@ const memberWebhook = async (req, res) => {
                 // Retrieve updated payment details from the database
                 if (MemberPayment) {
                     // Send confirmation email or perform other actions
-                    sendConfirmationEmail(MemberPayment);
+                    await sendConfirmationEmail(MemberPayment);
                     res.status(200).json({ status: 'ok' });
                 } else {
                     // Handle case where payment details are not found
