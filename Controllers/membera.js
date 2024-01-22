@@ -233,14 +233,14 @@ const sendConfirmationEmail = async (memberDetails) => {
             <p>A new Travel Pass has been registered in the system. Below are the details:</p>
             <ul>
                 <li><strong>Member ID:</strong> ${memberDetails.memberId}</li>
-                <li><strong>Name:</strong> ${memberDetails.firstname} ${memberDetails.lastname}</li>
+                ${memberDetails.firstname || memberDetails.lastname ? `<li><strong>Name:</strong> ${memberDetails.firstname || ''} ${memberDetails.lastname || ''}</li>` : ''}
                 <li><strong>Email:</strong> ${memberDetails.email}</li>
                 <li><strong>Phone Number:</strong> ${memberDetails.phonenumber}</li>
                 <li><strong>Pass Type:</strong> ${memberDetails.passtype}</li>
                 <li><strong>Activation Date:</strong> ${memberDetails.activationdate}</li>
                 <li><strong>Expiry Date:</strong> ${memberDetails.expiringdate}</li>
                 <li><strong>Total Amount Paid:</strong> ₹${memberDetails.totalamount}</li>
-                ${memberDetails.selecteddate ? `<li><strong>Selected Date:</strong> ${memberDetails.selecteddate}</li>` : ''}
+                ${memberDetails.selecteddate ? `<li><strong>Travelling Date:</strong> ${memberDetails.selecteddate}</li>` : ''}
                 ${memberDetails.ticket ? `<li><strong>Tickets:</strong> ${memberDetails.ticket}</li>` : ''}
             </ul>
         </div>
