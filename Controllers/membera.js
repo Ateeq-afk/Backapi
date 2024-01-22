@@ -188,7 +188,9 @@ const sendConfirmationEmail = async (memberDetails) => {
     } catch (error) {
         console.error('Error sending confirmation email:', error);
     }
-
+    const nameLine = memberDetails.firstname || memberDetails.lastname 
+    ? `<li><strong>Name:</strong> ${memberDetails.firstname || ''} ${memberDetails.lastname || ''}</li>` 
+    : '';
     // Admin notification email
     const adminNotificationEmail = `
     <!DOCTYPE html>
@@ -233,7 +235,7 @@ const sendConfirmationEmail = async (memberDetails) => {
             <p>A new Travel Pass has been registered in the system. Below are the details:</p>
             <ul>
                 <li><strong>Member ID:</strong> ${memberDetails.memberId}</li>
-                ${memberDetails.firstname || memberDetails.lastname ? `<li><strong>Name:</strong> ${memberDetails.firstname || ''} ${memberDetails.lastname || ''}</li>` : ''}
+                ${nameLine}
                 <li><strong>Email:</strong> ${memberDetails.email}</li>
                 <li><strong>Phone Number:</strong> ${memberDetails.phonenumber}</li>
                 <li><strong>Pass Type:</strong> ${memberDetails.passtype}</li>
