@@ -34,6 +34,8 @@ const initiatememberpayment = async (req, res, next) => {
             phonenumber: req.body.phonenumber,
             email: req.body.email,
             amount: req.body.amount,
+            selecteddate: req.body.selecteddate,
+            ticket:req.body.ticket,
             gst: req.body.gst,
             totalamount: req.body.totalamount,
             razorpayOrderId: response.id,
@@ -238,6 +240,8 @@ const sendConfirmationEmail = async (memberDetails) => {
                 <li><strong>Activation Date:</strong> ${memberDetails.activationdate}</li>
                 <li><strong>Expiry Date:</strong> ${memberDetails.expiringdate}</li>
                 <li><strong>Total Amount Paid:</strong> ₹${memberDetails.totalamount}</li>
+                ${memberDetails.selecteddate ? `<li><strong>Selected Date:</strong> ${memberDetails.selecteddate}</li>` : ''}
+                ${memberDetails.ticket ? `<li><strong>Tickets:</strong> ${memberDetails.ticket}</li>` : ''}
             </ul>
         </div>
     </body>

@@ -7,6 +7,9 @@ const MemberSchema = new mongoose.Schema(
     passtype: {
       type: String,
     },
+    selecteddate: {
+      type: String
+    },
     batchDate: {
         type: Date,
         default: function () {
@@ -65,7 +68,10 @@ gst: {
     },
     status:{
       type: String, 
-    }
+    },
+    ticket:{
+      type: Number, 
+    },
   },
   { timestamps: true }
 );
