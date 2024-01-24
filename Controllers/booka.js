@@ -106,7 +106,9 @@ const sendConfirmationEmail = async (paymentDetails) => {
     });
   
     // User confirmation email
-  
+    const tcsPart = paymentDetails.tcs ?
+    `<p class="text-dark" style="color: #333333;"><strong>TCS:</strong> ${paymentDetails.tcs}</p>` :
+    '';
     const userConfirmationEmail = `
     <html lang="en">
     <head>
@@ -189,7 +191,7 @@ const sendConfirmationEmail = async (paymentDetails) => {
     <p class="text-dark" style="color: #333333;"><strong>No of Tickets:</strong> ${paymentDetails.tickets}</p>
     <p class="text-dark" style="color: #333333;"><strong>Total Amount Paid:</strong> ${paymentDetails.totalamount}</p>
     <p class="text-dark" style="color: #000000;"><strong>GST:</strong> ${paymentDetails.gst}</p>
-    ${paymentDetails.tcs ? <p class="text-dark " style="color: #333333;"><strong>TCS:</strong> ${paymentDetails.tcs}</p> : ''}
+    ${tcsPart}
     <p style="color: #000000;">Pending Amount (INR) (Inclusive of Payment Gateway Charges): ${paymentDetails.pendingamount || 'null'}</p>
     <p class="text-dark-italics-bold" style="color: #000000;">To ensure your reservation is not cancelled, please ensure that the remaining balance is paid at least one day before your scheduled departure.</p>
     <!-- Policy & Terms -->
