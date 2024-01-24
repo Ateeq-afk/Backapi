@@ -125,6 +125,7 @@ const sendConfirmationEmail = async (memberDetails) => {
     }
     .footer p {
       margin: 10px 0;
+      color: #fff;
     }
     .footer .social-icons {
       font-size: 24px; /* Adjust as per your design */
@@ -136,11 +137,11 @@ const sendConfirmationEmail = async (memberDetails) => {
     }
     </style>
     </head>
-    <body style="margin: 0; padding: 0; background-color: #F3F3F3;">
+    <body style="margin: 0; padding: 0; background-color: #F3F3F3; color:black;">
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse; color: #000000;">
             <tr>
                 <td align="center" bgcolor="#000000" style="padding: 40px 0 30px 0;">
                     <!-- Logo -->
@@ -152,7 +153,7 @@ const sendConfirmationEmail = async (memberDetails) => {
             <tr>
                                 <td style="background-color: #FFFFFF; padding-left: 20px; padding-right:20px; font-family: 'Poppins', Arial, sans-serif;">
                                 <h2 style="color: #FCB418; text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);">Welcome to the Backpackers United Family</h2>
-                                    <p class="text-light">Dear ${memberDetails.firstname} ${memberDetails.lastname},</p>
+                                    <p class="text-light ">Dear ${memberDetails.firstname} ${memberDetails.lastname},</p>
                                     <p class="text-light">Thank you for choosing Backpackers United to enhance your travel experience! We are thrilled to confirm that your Travel Pass has been successfully activated and is ready to accompany you on your upcoming journeys. Below are the details of your Travel Pass:</p>
                                     <h3 class="text-dark" style="border-bottom: 2px solid #333; padding-bottom: 2px;">Travel Pass Details</h3>
                                     <p class="text-dark"><strong>Member ID:</strong> ${memberDetails.memberId}</p>
@@ -195,7 +196,7 @@ const sendConfirmationEmail = async (memberDetails) => {
      <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #FFFFFF;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse; background-color: #FFFFFF; color: #000000;">
               <tr>
                 <td style="padding-left: 20px; padding-right:20px; font-family: Arial, sans-serif; color: #333333;">
                   <!-- Payment Details Section -->
@@ -230,7 +231,7 @@ const sendConfirmationEmail = async (memberDetails) => {
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
         <td align="center">
-          <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #000000; width: 600px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse; background-color: #000000;  ">
             <tr>
               <td style="padding: 20px 0; text-align: center;">
                 <img src="https://i.ibb.co/HCXNCK3/Backpackers-logo-web.png" alt="Backpackers United Logo" width="200" style="display: block; margin: 0 auto;"/>
