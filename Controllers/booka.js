@@ -174,9 +174,8 @@ const sendConfirmationEmail = async (paymentDetails) => {
                 <td style="padding: 0 20px;">
      <!-- Image added below -->
                    <img src="https://i.ibb.co/YyB6kqv/pexels-oleksandr-p-1008155-1.jpg" alt="pexels-oleksandr-p-1008155-1" width="560" style="display: block; margin: 20px 0; color: #333333;"/>
-                      <h2 style="color: #FCB418; text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);">Yay!!! Your Booking is Confirmed</h2>
-                     <h2 style="color: #FCB418; text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);">You are going to ${paymentDetails.eventName || 'null'}.</h2>
-                    <p class="text-dark">Dear ${paymentDetails.username},</p>
+                      <h2 style="color: #FCB418; text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);">Congratulations! Your Booking for ${paymentDetails.eventName || 'null'} is Confirmed.  </h2>
+                    <p class="text-dark" style="color: #333333;" >Dear ${paymentDetails.username},</p>
                     <!-- Rest of your content... -->
                     <p class="text-light">We are absolutely thrilled to confirm your booking and are excited to be an integral part of your upcoming journey to ${paymentDetails.eventName || 'null'}. Thank you for choosing Backpackers United as your travel partner. Below,
     you will find the details of your reservation, along with some helpful information for your travel. </p>
