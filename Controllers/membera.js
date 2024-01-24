@@ -153,35 +153,35 @@ const sendConfirmationEmail = async (memberDetails) => {
             <tr>
                                 <td style="background-color: #FFFFFF; padding-left: 20px; padding-right:20px; font-family: 'Poppins', Arial, sans-serif;">
                                 <h2 style="color: #FCB418; text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);">Welcome to the Backpackers United Family</h2>
-                                    <p class="text-light ">Dear ${memberDetails.firstname} ${memberDetails.lastname},</p>
-                                    <p class="text-light">Thank you for choosing Backpackers United to enhance your travel experience! We are thrilled to confirm that your Travel Pass has been successfully activated and is ready to accompany you on your upcoming journeys. Below are the details of your Travel Pass:</p>
-                                    <h3 class="text-dark" style="border-bottom: 2px solid #333; padding-bottom: 2px;">Travel Pass Details</h3>
-                                    <p class="text-dark"><strong>Member ID:</strong> ${memberDetails.memberId}</p>
-                                    <p class="text-dark"><strong>Pass Type:</strong> ${memberDetails.passtype}</p>
-                                    <p class="text-dark"><strong>Valid From:</strong> ${memberDetails.activationdate}</p>
-                                    <p class="text-dark"><strong>Valid Till:</strong> ${memberDetails.expiringdate}</p>
-                                    <p class="text-dark"><strong>Email Address:</strong> ${memberDetails.email}</p>
-                                    <p class="text-dark"><strong>Contact Number:</strong> ${memberDetails.phonenumber}</p>
-                                    <p class="text-dark"><strong>Total Pass Fee:</strong> ₹${memberDetails.totalamount}</p>
+                                    <p class="text-light" style="color: #333333;">Dear ${memberDetails.firstname} ${memberDetails.lastname},</p>
+                                    <p class="text-light" style="color: #333333;">Thank you for choosing Backpackers United to enhance your travel experience! We are thrilled to confirm that your Travel Pass has been successfully activated and is ready to accompany you on your upcoming journeys. Below are the details of your Travel Pass:</p>
+                                    <h3 class="text-dark" style="border-bottom: 2px solid #333; padding-bottom: 2px; color: #333333;">Travel Pass Details</h3>
+                                    <p class="text-dark" style="color: #333333;"><strong>Member ID:</strong> ${memberDetails.memberId}</p>
+                                    <p class="text-dark" style="color: #333333;"><strong>Pass Type:</strong> ${memberDetails.passtype}</p>
+                                    <p class="text-dark" style="color: #333333;"><strong>Valid From:</strong> ${memberDetails.activationdate}</p>
+                                    <p class="text-dark" style="color: #333333;"><strong>Valid Till:</strong> ${memberDetails.expiringdate}</p>
+                                    <p class="text-dark" style="color: #333333;"><strong>Email Address:</strong> ${memberDetails.email}</p>
+                                    <p class="text-dark" style="color: #333333;"><strong>Contact Number:</strong> ${memberDetails.phonenumber}</p>
+                                    <p class="text-dark" style="color: #333333;"><strong>Total Pass Fee:</strong> ₹${memberDetails.totalamount}</p>
                                     <!-- Additional information -->
                                 </td>
                             </tr>
                             <tr>
       <td style="background-color: #FFFFFF; padding-left: 20px; padding-right:20px ; font-family: 'Poppins', Arial, sans-serif; color: #000000;">
       <h3 class="text-dark" style="border-bottom: 2px solid #333; padding-bottom: 2px;">Travel Pass: Exclusive Member Benefits:</h3>
-        <p style="font-size: 16px; line-height: 1.5; color: #000000;">Your United Travel Pass unlocks a host of exclusive benefits designed to make your travels smoother, safer, and more enjoyable. Here's a glimpse of what awaits you:</p>
+        <p style="color: #000000;">Your United Travel Pass unlocks a host of exclusive benefits designed to make your travels smoother, safer, and more enjoyable. Here's a glimpse of what awaits you:</p>
         <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 10px;">
           <li style="margin-bottom: 12px;">
-            <p style="font-size: 16px; line-height: 1.5; color: #000000;"><strong style="color: #FCB418;">Monthly Adventure Selection:</strong> With your United Travel Pass, enjoy the benefit of selecting a monthly adventure, whether a trek or a tour, aligned with your pass type, at an exclusive 50% discount.</p>
+            <p style=" color: #000000;"><strong style="font-size: 16px; color: #FCB418;">Monthly Adventure Selection:</strong> With your United Travel Pass, enjoy the benefit of selecting a monthly adventure, whether a trek or a tour, aligned with your pass type, at an exclusive 50% discount.</p>
           </li>
           <li style="margin-bottom: 12px;">
-            <p style="font-size: 16px; line-height: 1.5; color: #000000;"><strong style="color: #FCB418;">Exclusive Package Discounts:</strong> Venture beyond the typical 2-day, 1-night escapes with attractive discounts on a variety of travel packages. Save on extended itineraries crafted for the avid explorer in you.</p>
+            <p style="color: #000000;"><strong style="font-size: 16px; color: #FCB418;">Exclusive Package Discounts:</strong> Venture beyond the typical 2-day, 1-night escapes with attractive discounts on a variety of travel packages. Save on extended itineraries crafted for the avid explorer in you.</p>
           </li>
           <li style="margin-bottom: 12px;">
-            <p style="font-size: 16px; line-height: 1.5; color: #000000;"><strong style="color: #FCB418;">Members-Only Invites:</strong> Step into an exclusive circle with access to special events and experiences. Your pass serves as your invitation to members-only gatherings, where like-minded travelers connect and unique opportunities unfold.</p>
+            <p style="color: #000000;"><strong style="font-size: 16px; color: #FCB418;">Members-Only Invites:</strong> Step into an exclusive circle with access to special events and experiences. Your pass serves as your invitation to members-only gatherings, where like-minded travelers connect and unique opportunities unfold.</p>
           </li>
           <li style="margin-bottom: 12px;">
-            <p style="font-size: 16px; line-height: 1.5; color: #000000;"><strong style="color: #FCB418;">24/7 Support:</strong> At any hour, across all time zones, our dedicated travel assistance team is at your service, providing steadfast support to ensure your peace of mind.</p>
+            <p style="color: #000000;"><strong style="font-size: 16px; color: #FCB418;">24/7 Support:</strong> At any hour, across all time zones, our dedicated travel assistance team is at your service, providing steadfast support to ensure your peace of mind.</p>
           </li>
         </ul>
       </td>
