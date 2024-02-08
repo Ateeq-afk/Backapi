@@ -22,6 +22,12 @@ const EnquirySchema = new mongoose.Schema(
   source:{
     type: String,
 },
+destination:{
+  type: String,
+},
+numberofperson:{
+  type: String,
+},
   },
   { timestamps: true }
 );
