@@ -7,6 +7,7 @@ const BookSchema = new mongoose.Schema(
     eventName: {
       type: String,
     },
+
     batchDate: {
         type: Date,
         default: function () {

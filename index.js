@@ -8,6 +8,7 @@ const DestRoute = require("./Routes/Dest.js");
 const MemberaRoute = require("./Routes/Membera.js");
 const BlogRoute = require("./Routes/Blog.js");
 const EnqRoute = require("./Routes/Enquiry.js");
+const DateRoute = require("./Routes/Date.js")
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const axios = require('axios')
@@ -28,7 +29,10 @@ dotenv.config();
 const connect = async () => {
     const dbURI = "mongodb+srv://ateeq:A53Eo-1996@cluster0.pdwyorg.mongodb.net/Backpack?retryWrites=true&w=majority";
     try {
-        await mongoose.connect(dbURI);
+        await mongoose.connect(dbURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("Connection to MongoDB failed", error);
@@ -55,6 +59,7 @@ app.use("/dest", DestRoute);
 app.use("/membera", MemberaRoute);
 app.use("/blog", BlogRoute);
 app.use("/enquiry", EnqRoute);
+app.use("/date", DateRoute);
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;

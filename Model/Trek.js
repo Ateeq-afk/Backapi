@@ -15,6 +15,7 @@ const TrekSchema = new mongoose.Schema(
     withoutamount : {type: Number},
     reserveamount: {type: Number},
     day: { type: String },
+    badge:{ type: String },
     trektype: { type: String },
     trektypename: { type: String },
     testimage: { type:String },

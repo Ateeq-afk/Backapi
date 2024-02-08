@@ -3,6 +3,12 @@ const DestSchema = new mongoose.Schema(
   {
     name: { type: String },
     order: {type:Number},
+    content: {type: String},
+    location: {type: String},
+    rankingstatement:{type: String},
+    duration:{type: String},
+    season:{type: String},
+    destinationtype:{type: String},
     coverimage:  { type: String },
     coverimagealt: {type: String},
     metatitle: { type: String},

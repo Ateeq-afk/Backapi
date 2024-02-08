@@ -43,7 +43,49 @@ const createDest = async (req, res, next) => {
       res.status(500).send('Error creating destination:', err.message);
     }
   };
+  const createDesta = async (req, res, next) => {
+    try {
+    const {
+      name,
+      imgagealt,
+      urllink,
+      maintype
+    } = req.body;
+    
+    const products = req.body.products instanceof Array ? req.body.products : [req.body.products];
+    const blogs = req.body.blogs instanceof Array ? req.body.blogs : [req.body.blogs];
+      const DestData = {
+        name,
+        maintype,
+        urllink,
+        imgagealt,
+        products,
+        over,
+        blogs
+      };
   
+    // const blog = req.body.blog instanceof Array ? req.body.blog : [req.body.blog];
+    function assignImageToField(files, fieldName, dataObject) {
+      if (files && files[fieldName]) {
+        // Handle single image
+        dataObject[fieldName] = files[fieldName][0].filename;
+      }
+    }
+    assignImageToField(req.files, 'coverimage', DestData);
+  
+        const newDest = new Dest(DestData);
+        await newDest.save();
+    
+        res.json({
+          message: 'Destination created successfully',
+          data: newDest,
+        });
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error creating destination:', err.message);
+      }
+    };
+    
   
   // Delete a destination by name
 const deleteDest= async (req,res,next)=>{
