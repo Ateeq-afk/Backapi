@@ -10,7 +10,7 @@ const Trek = require("../Model/Trek.js");
     }
   }
 
-  const tourTypes = ['grouptour', 'longtour', 'international', 'northindiatour'];
+  const tourTypes = ['grouptour', 'longtour', 'international', 'northindiatour','private'];
   const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tntrek'];
   
   // Middleware function to get tours by name
