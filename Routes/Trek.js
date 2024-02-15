@@ -13,6 +13,8 @@ router.get('/grouptour', trekController.getTreksGroupTour);
 router.get('/longtour', trekController.getTreksLongTour);
 router.get('/international', trekController.getTreksInternational);
 router.get('/northindiatour', trekController.getTreksNorthIndiaTour);
+router.get('/specialtour', trekController.getTreksSpecialTour);
+router.get('/specialtrek', trekController.getTreksSpecialTrek);
 router.get('/northindiatrek', trekController.getTreksNorthIndiaTrek);
 router.get('/karnatakatrek', trekController.getTreksKarnatakaTrek);
 router.get('/keralatrek', trekController.getTreksKeralaTrek);

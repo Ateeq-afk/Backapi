@@ -10,8 +10,8 @@ const Trek = require("../Model/Trek.js");
     }
   }
 
-  const tourTypes = ['grouptour', 'longtour', 'international', 'northindiatour','private'];
-  const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tntrek'];
+  const tourTypes = ['grouptour', 'longtour', 'international', 'northindiatour','private','specialtour'];
+  const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tntrek','specialtrek'];
   
   // Middleware function to get tours by name
   const getTourByName = async (req, res) => {
@@ -442,7 +442,30 @@ const getTreksGroupTour = async (req, res, next) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
-
+ const getTreksSpecialTour = async (req, res, next) => {
+  try {
+    const treks = await Trek.find({ maintype: 'specialtour' });
+    if (treks.length === 0) {
+      return res.status(404).json({ error: 'Special Tour not found' });
+    }
+    res.json(treks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+const getTreksSpecialTrek = async (req, res, next) => {
+  try {
+    const treks = await Trek.find({ maintype: 'specialtrek' });
+    if (treks.length === 0) {
+      return res.status(404).json({ error: 'Special Trek not found' });
+    }
+    res.json(treks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
 // North India Trek
  const getTreksNorthIndiaTrek = async (req, res, next) => {
   try {
@@ -524,10 +547,12 @@ module.exports = {
     getTreksGroupTour,
     getTreksLongTour,
     getTreksInternational,
+    getTreksSpecialTour,
     getTreksNorthIndiaTour,
-    getTreksNorthIndiaTrek,
     getTreksKarnatakaTrek,
+    getTreksNorthIndiaTrek,
     getTreksKeralaTrek,
     getTreksTNTrek,
+    getTreksSpecialTrek,
     getEventCounts
 }
