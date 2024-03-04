@@ -1,5 +1,6 @@
 const Activity = require("../Model/Activities.js");
 
+
 const createActivity = async (req, res) => {
     try {
       // Extract the activity information from the request body
@@ -199,8 +200,27 @@ console.log(req.files);
       res.status(500).json({ success: false, error: error.message });
     }
   }
+  const getActivity = async (req, res) => {
+    try {
+      const activities = await Activity.find({ type: 'activity' });
+      res.status(200).json({ success: true, data: activities });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  };
+  const getActivityStays = async (req, res) => {
+    try {
+      const activities = await Activity.find({ type: 'stays' });
+      res.status(200).json({ success: true, data: activities });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  };
   module.exports = {
+    getActivity,
+    getActivityStays,
     createActivity,
     createStays,
-    getActivitysall
+    getActivitysall,
+
   }
