@@ -9,6 +9,7 @@ const MemberaRoute = require("./Routes/Membera.js");
 const BlogRoute = require("./Routes/Blog.js");
 const EnqRoute = require("./Routes/Enquiry.js");
 const DateRoute = require("./Routes/Date.js")
+const ActRoute = require("./Routes/Activity.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const axios = require('axios')
@@ -60,6 +61,7 @@ app.use("/membera", MemberaRoute);
 app.use("/blog", BlogRoute);
 app.use("/enquiry", EnqRoute);
 app.use("/date", DateRoute);
+app.use("/activity", ActRoute);
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;
