@@ -40,6 +40,86 @@ const Blog = require("../Model/Blog.js");
 //   }
 // };
 
+const createBloga = async (req, res, next) => {
+  try {
+  const {
+    name,
+    urllink,
+    blogs,
+    metatitle,
+    metades,
+    coverimagealt,
+    type,
+    time,
+    date,
+    photoname,
+    destination,
+    blog
+  } = req.body;
+  
+  const over = req.body.over instanceof Array ? req.body.over : [req.body.over];
+  const products = req.body.products instanceof Array ? req.body.products : [req.body.products];
+  const tourproducts = req.body.tourproducts instanceof Array ? req.body.tourproducts : [req.body.tourproducts];
+  const bloga = req.body.bloga instanceof Array ? req.body.bloga : [req.body.bloga];
+    let blogsArray
+    try {
+      blogsArray = JSON.parse(blogs);
+    } catch (error) {
+      return res.status(400).send('Invalid days data: ' + error.message);
+    }
+    if (req.files['coverimage']) {
+      activityData.coverimage = req.files['coverimage'][0].key.split('/')[1]; // Extracting the filename
+    }
+    if (req.files['photo']) {
+      activityData.photo = req.files['photo'][0].key.split('/')[1]; // Extracting the filename
+    }
+    BlogData.blog.forEach((blog, index) => {
+      if(req.files && req.files[`blogImage[${index}]`]) {
+          blog.image = req.files[`blogImage[${index}]`][0].key.split('/')[1];
+      }
+    });
+    if (typeof blog === 'string') {
+      try {
+        blogArray = JSON.parse(blog);
+      } catch (error) {
+        return res.status(400).send('Invalid days data: ' + error.message);
+      }
+    } else if (blog instanceof Array) {
+      blogArray = blog;
+    } else {
+      return res.status(400).send('Invalid days data');
+    }
+    const BlogData = {
+      name,
+      urllink,
+      products,
+      tourproducts,
+      metatitle,
+      metades,
+      over,
+      bloga,
+      type,
+      time,
+      date,
+      photoname,
+      destination,
+      coverimagealt,
+      blog: blogsArray
+    };
+
+      const newBlog = new Blog(BlogData);
+      await newBlog.save();
+      console.log('BlogData:', BlogData);
+      res.json({
+        message: 'Destination created successfully',
+        data: newBlog,
+      });
+    } catch (err) {
+      console.error(err);
+      console.log(err,"hey")
+      res.status(500).send('Error creating destination:', err.message);
+    }
+  };
 const createBlog = async (req, res, next) => {
     try {
     const {
@@ -112,5 +192,6 @@ const createBlog = async (req, res, next) => {
     module.exports = {
         createBlog,
         getBlogByName,
-        getBlogssall
+        getBlogssall,
+        createBloga,
     };
