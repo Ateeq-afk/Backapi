@@ -3,6 +3,7 @@ const BlogSchema = new mongoose.Schema(
   {
     name: { type: String },
     urllink: { type: String },
+    title: {type: String},
     coverimage: {type: String},
     coverimagealt: {type: String},
     destination: {type:String},
@@ -11,7 +12,7 @@ const BlogSchema = new mongoose.Schema(
       type: String 
     },
     date: {
-      type: Date,
+      type: String
     },
     photo: {
       type: String
@@ -43,7 +44,7 @@ const BlogSchema = new mongoose.Schema(
       title: {
         type: String,
       },
-      content: {
+      para: {
         type: String, 
       },
       image: {
@@ -53,7 +54,12 @@ const BlogSchema = new mongoose.Schema(
           type: String,
         }
     }], 
-
+    blogproduct:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog' }],
+    activityproduct:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
+    // blogproduct: [{
+    //   refId: { type: mongoose.Schema.Types.ObjectId},
+    //   refType: { type: String, enum: ['Blog', 'Activity'], }
+    // }],
   },
   { timestamps: true }
 )

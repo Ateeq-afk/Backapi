@@ -10,7 +10,7 @@ router.get("/main", trekController.getTreksMain);
 router.get("/trek", trekController.getTrek);
 router.get("/tour", trekController.getTour);
 router.get("/trekfull", trekController.getTrekfull);
-router.get("/toufullr", trekController.getTourfull);
+router.get("/tourfull", trekController.getTourfull);
 router.get('/grouptour', trekController.getTreksGroupTour);
 router.get('/longtour', trekController.getTreksLongTour);
 router.get('/international', trekController.getTreksInternational);
