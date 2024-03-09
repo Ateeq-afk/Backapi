@@ -10,6 +10,7 @@ const BlogRoute = require("./Routes/Blog.js");
 const EnqRoute = require("./Routes/Enquiry.js");
 const DateRoute = require("./Routes/Date.js")
 const ActRoute = require("./Routes/Activity.js");
+const AttRoute = require("./Routes/Attraction.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const axios = require('axios')
@@ -42,8 +43,21 @@ const connect = async () => {
 };
 
 connect();
+const allowedOrigins = ['https://backpackersunited.in', 'https://backpackers-omega.vercel.app'];
 
-app.use(cors())
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true, // Reflect the request origin, as defined by the config
+}));
+
 // app.use(cookieParser())
 // app.use(bodyParser.urlencoded({extended:false}))
 // app.use(bodyParser.json());
@@ -64,6 +78,7 @@ app.use("/blog", BlogRoute);
 app.use("/enquiry", EnqRoute);
 app.use("/date", DateRoute);
 app.use("/activity", ActRoute);
+app.use("/attraction", AttRoute);
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;
