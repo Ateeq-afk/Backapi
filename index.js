@@ -43,26 +43,31 @@ const connect = async () => {
 };
 
 connect();
-const allowedOrigins = ['https://backpackersunited.in', 'https://backpackers-omega.vercel.app'];
+const allowedOrigins = [
+    'https://backpackersunited.in', 
+    'https://backpackers-omega.vercel.app',
+    'http://localhost:3000' // Add your localhost origin here
+  ];
+  
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true, // Reflect the request origin, as defined by the config
-}));
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Allow requests with no origin like mobile apps or curl requests
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('The CORS policy for this site does not allow access from the specified Origin.'), false);
+      }
+    },
+    credentials: true,
+  }));
+  
 
 // app.use(cookieParser())
 // app.use(bodyParser.urlencoded({extended:false}))
 // app.use(bodyParser.json());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: '2gb' }));
+app.use(express.urlencoded({ limit: '2gb', extended: true, parameterLimit: 50000 }));
 
 app.use("/uploads", (req, res, next) => {
     console.log('Request for static file received:', req.path);
