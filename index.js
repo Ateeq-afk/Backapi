@@ -28,21 +28,6 @@ dotenv.config();
 //     }
 // };
 
-const connect = async () => {
-    const dbURI = "mongodb+srv://ateeq:A53Eo-1996@cluster0.pdwyorg.mongodb.net/Backpack?retryWrites=true&w=majority";
-    try {
-        await mongoose.connect(dbURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log("Connected to MongoDB");
-    } catch (error) {
-        console.error("Connection to MongoDB failed", error);
-        throw error;
-    }
-};
-
-connect();
 const allowedOrigins = [
     'https://backpackersunited.in', 
     'https://backpackers-omega.vercel.app',
@@ -61,6 +46,22 @@ const allowedOrigins = [
     },
     credentials: true,
   }));
+const connect = async () => {
+    const dbURI = "mongodb+srv://ateeq:A53Eo-1996@cluster0.pdwyorg.mongodb.net/Backpack?retryWrites=true&w=majority";
+    try {
+        await mongoose.connect(dbURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Connection to MongoDB failed", error);
+        throw error;
+    }
+};
+
+connect();
+
   
 
 // app.use(cookieParser())

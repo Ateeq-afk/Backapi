@@ -16,7 +16,9 @@ const createBloga = async (req, res, next) => {
     date,
     photoname,
     destination,
-    blog
+    blog,
+    coverimage,
+    photo,
   } = req.body;
  
   const over = req.body.over instanceof Array ? req.body.over : [req.body.over];
@@ -59,20 +61,22 @@ const createBloga = async (req, res, next) => {
       photoname,
       destination,
       coverimagealt,
+      coverimage,
+      photo,
       blog: blogArray
     };
     console.log('BlogData before saving:', BlogData);
-    if (req.files['coverimage']) {
-      BlogData.coverimage = req.files['coverimage'][0].key.split('/')[1]; // Extracting the filename
-    }
-    if (req.files['photo']) {
-      BlogData.photo = req.files['photo'][0].key.split('/')[1]; // Extracting the filename
-    }
-    BlogData.blog.forEach((blog, index) => {
-      if(req.files && req.files[`blogImage[${index}]`]) {
-          blog.image = req.files[`blogImage[${index}]`][0].key.split('/')[1];
-      }
-    });
+    // if (req.files['coverimage']) {
+    //   BlogData.coverimage = req.files['coverimage'][0].key.split('/')[1]; // Extracting the filename
+    // }
+    // if (req.files['photo']) {
+    //   BlogData.photo = req.files['photo'][0].key.split('/')[1]; // Extracting the filename
+    // }
+    // BlogData.blog.forEach((blog, index) => {
+    //   if(req.files && req.files[`blogImage[${index}]`]) {
+    //       blog.image = req.files[`blogImage[${index}]`][0].key.split('/')[1];
+    //   }
+    // });
       const newBlog = new Blog(BlogData);
       await newBlog.save();
       console.log('BlogData:', BlogData);
