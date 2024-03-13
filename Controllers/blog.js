@@ -29,8 +29,7 @@ const createBloga = async (req, res, next) => {
   const activityproduct = req.body.activityproduct instanceof Array ? req.body.activityproduct : [req.body.activityproduct];
     let blogArray
  
-    console.log(req.body);
-    console.log(req.files);
+    console.log(req.body,"reqbody");
 
     if (typeof blog === 'string') {
       try {
