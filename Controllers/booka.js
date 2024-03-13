@@ -269,7 +269,7 @@ const sendConfirmationEmail = async (paymentDetails) => {
         console.error('Error sending confirmation email:', error);
     }
   
-    const recipients = ['info@backpackersunited.in', 'ateeq@backpackersunited.in', 'habeeb@backpackersunited.in'];
+    const recipients = ['info@backpackersunited.in', 'ashwin@backpackersunited.in', 'habeeb@backpackersunited.in'];
   
     const adminNotificationEmail = `
     <html lang="en">

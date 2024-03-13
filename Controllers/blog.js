@@ -27,6 +27,7 @@ const createBloga = async (req, res, next) => {
   const bloga = req.body.bloga instanceof Array ? req.body.bloga : [req.body.bloga];
   const blogproduct = req.body.blogproduct instanceof Array ? req.body.blogproduct : [req.body.blogproduct];
   const activityproduct = req.body.activityproduct instanceof Array ? req.body.activityproduct : [req.body.activityproduct];
+  const attractionproduct = req.body.attractionproduct instanceof Array ? req.body.attractionproduct : [req.body.attractionproduct];
     let blogArray
  
     console.log(req.body,"reqbody");
@@ -54,6 +55,7 @@ const createBloga = async (req, res, next) => {
       bloga,
       blogproduct,
       activityproduct,
+      attractionproduct,
       type,
       time,
       date,

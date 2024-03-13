@@ -56,6 +56,7 @@ const BlogSchema = new mongoose.Schema(
     }], 
     blogproduct:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog' }],
     activityproduct:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
+    attractionproduct:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Attraction' }]
     // blogproduct: [{
     //   refId: { type: mongoose.Schema.Types.ObjectId},
     //   refType: { type: String, enum: ['Blog', 'Activity'], }

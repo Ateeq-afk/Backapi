@@ -341,7 +341,7 @@ const sendConfirmationEmail = async (memberDetails) => {
     </html>
     `;
 
-    const recipients = ['info@backpackersunited.in', 'ateeq@backpackersunited.in', 'habeeb@backpackersunited.in'];
+    const recipients = ['info@backpackersunited.in', 'ashwin@backpackersunited.in', 'habeeb@backpackersunited.in'];
     const adminMailOptions = {
         from: 'info@backpackersunited.in',
         to: recipients,
