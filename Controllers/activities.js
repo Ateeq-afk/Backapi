@@ -63,32 +63,9 @@ const createActivity = async (req, res) => {
         blogs: blogs instanceof Array ? blogs : [blogs],
         related: related instanceof Array ? related : [related],
       };
-      activityData.days.forEach((day, index) => {
-        if (req.files[`dayImage[${index}]`]) {
-          day.image = req.files[`dayImage[${index}]`][0].key.split('/')[1]; // Extracting the filename
-        }
-      });
-      if (req.files['coverimage']) {
-        activityData.coverimage = req.files['coverimage'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage2']) {
-        activityData.coverimage2 = req.files['coverimage2'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage3']) {
-        activityData.coverimage3 = req.files['coverimage3'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage4']) {
-        activityData.coverimage4 = req.files['coverimage4'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage5']) {
-        activityData.coverimage5 = req.files['coverimage5'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage6']) {
-        activityData.coverimage6 = req.files['coverimage6'][0].key.split('/')[1]; // Extracting the filename
-      }
       // Create a new Activity instance and save to the database
       console.log(req.body);
-console.log(req.files);
+
 
       const newActivity = new Activity(activityData);
       await newActivity.save();
@@ -155,27 +132,10 @@ console.log(req.files);
         blogs: blogs instanceof Array ? blogs : [blogs],
         related: related instanceof Array ? related : [related],
       };
-      if (req.files['coverimage']) {
-        activityData.coverimage = req.files['coverimage'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage2']) {
-        activityData.coverimage2 = req.files['coverimage2'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage3']) {
-        activityData.coverimage3 = req.files['coverimage3'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage4']) {
-        activityData.coverimage4 = req.files['coverimage4'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage5']) {
-        activityData.coverimage5 = req.files['coverimage5'][0].key.split('/')[1]; // Extracting the filename
-      }
-      if (req.files['coverimage6']) {
-        activityData.coverimage6 = req.files['coverimage6'][0].key.split('/')[1]; // Extracting the filename
-      }
+ 
       // Create a new Activity instance and save to the database
       console.log(req.body);
-console.log(req.files);
+
 
       const newActivity = new Activity(activityData);
       await newActivity.save();

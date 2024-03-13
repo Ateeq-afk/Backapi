@@ -50,16 +50,6 @@ const createAttraction = async (req, res) => {
             activity: activity instanceof Array ? activity : [activity],
             bloga: bloga instanceof Array ? bloga : [bloga]
         };
-        attractionData.content.forEach((content, index) => {
-            if (req.files[`contentImage[${index}]`]) {
-                content.image = req.files[`contentImage[${index}]`][0].key.split('/')[1]; // Extracting the filename
-            }
-          });
-        // If using file uploads for coverimage, handle them similar to how coverimage is handled in createActivity
-        if (req.files && req.files['coverimage']) {
-            attractionData.coverimage = req.files['coverimage'][0].key.split('/')[1]; // Extracting the filename
-        }
-
         // Create a new Attraction instance and save to the database
         const newAttraction = new Attraction(attractionData);
         await newAttraction.save();
