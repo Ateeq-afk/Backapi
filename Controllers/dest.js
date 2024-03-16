@@ -43,49 +43,58 @@ const createDest = async (req, res, next) => {
       res.status(500).send('Error creating destination:', err.message);
     }
   };
-  const createDesta = async (req, res, next) => {
-    try {
-    const {
-      name,
-      imgagealt,
-      urllink,
-      maintype
-    } = req.body;
-    
-    const products = req.body.products instanceof Array ? req.body.products : [req.body.products];
-    const blogs = req.body.blogs instanceof Array ? req.body.blogs : [req.body.blogs];
-      const DestData = {
-        name,
-        maintype,
-        urllink,
-        imgagealt,
-        products,
-        over,
-        blogs
-      };
+
+  const createDesta = async (req, res) => {
+      try {
+          // Extract the destination information from the request body
+          const {
+              name, location, title, visit, duration, desttype, coverimage, coverimagealt, 
+              metatitle, metades, maintype, urllink, over, attpara, attraction, actpara, activity, 
+              staypara, stay, religpara, religious, camppara, camping, food, culture, shopping, 
+              products, tourproducts, blogs, destination
+          } = req.body;
   
-    // const blog = req.body.blog instanceof Array ? req.body.blog : [req.body.blog];
-    function assignImageToField(files, fieldName, dataObject) {
-      if (files && files[fieldName]) {
-        // Handle single image
-        dataObject[fieldName] = files[fieldName][0].filename;
-      }
-    }
-    assignImageToField(req.files, 'coverimage', DestData);
+          // Assume content parsing like over, attraction, etc., are already in the expected format or simple arrays
+          // Construct the Dest data from the request body
+          const destData = {
+            name, location, title, visit, duration, desttype, coverimage, coverimagealt,
+            metatitle, metades, maintype, urllink,
+            over: over instanceof Array ? over : [over],
+            attpara,
+            attraction: attraction instanceof Array ? attraction : [attraction],
+            actpara,
+            activity: activity instanceof Array ? activity : [activity],
+            staypara,
+            stay: stay instanceof Array ? stay : [stay],
+            religpara,
+            religious: religious instanceof Array ? religious : [religious],
+            camppara,
+            camping: camping instanceof Array ? camping : [camping],
+            food: food instanceof Array ? food : [food],
+            culture: culture instanceof Array ? culture : [culture],
+            shopping: shopping instanceof Array ? shopping : [shopping],
+            products: products instanceof Array ? products : [products],
+            tourproducts: tourproducts instanceof Array ? tourproducts : [tourproducts],
+            blogs: blogs instanceof Array ? blogs : [blogs],
+            destination: destination instanceof Array ? destination : [destination]
+        };
   
-        const newDest = new Dest(DestData);
-        await newDest.save();
-    
-        res.json({
-          message: 'Destination created successfully',
-          data: newDest,
-        });
+          // Create a new Dest instance and save to the database
+          const newDest = new Dest(destData);
+          await newDest.save();
+  
+          // Send the response back to the client
+          res.json({
+              message: 'Destination successfully created',
+              data: newDest
+          });
+  
       } catch (err) {
-        console.error(err);
-        res.status(500).send('Error creating destination:', err.message);
+          console.error(err);
+          res.status(500).send({ message: 'Error creating destination', error: err.message });
       }
-    };
-    
+  };
+  
   
   // Delete a destination by name
 const deleteDest= async (req,res,next)=>{
@@ -244,6 +253,7 @@ const getDestinationsInternational = async (req, res, next) => {
 };
 
 module.exports = {
+  createDesta,
   createDest,
   deleteDest,
   getDestsall,
