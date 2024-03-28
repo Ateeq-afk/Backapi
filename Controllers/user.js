@@ -1,4 +1,5 @@
 const User = require("../Model/User.js");
+const Trek = require("../Model/Trek.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
@@ -170,7 +171,55 @@ const forgotPassword = async (req, res, next) => {
       res.status(401).json({status:401,error})
   }
 }
+const GetUserDetails = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) return res.status(404).send('User not found');
+    res.json(user);
+  } catch (err) {
+    res.status(500).send(err.toString());
+  }
+}
+const UpdateUserDetails = async (req, res, next) => {
+  try {
+    const user = await User.findOneAndUpdate({ email: req.params.email }, req.body, { new: true });
+    res.json(user);
+  } catch (err) {
+    res.status(500).send(err.toString());
+  }
+}
+const SaveWish = async (req, res, next) => {
+  const { email, trekName } = req.params;
 
-module.exports = { signup, signin, googleAuth, passwordLink, forgotPassword };
+  try {
+    const user = await User.findOne({ email: email });
+    const trek = await Trek.findOne({ name: trekName });
+    if (!user || !trek) return res.status(404).send('User or Trek not found');
+
+    if (!user.wishlist.includes(trek._id)) {
+      user.wishlist.push(trek._id); // Add the trek ID to the user's wishlist
+      await user.save();
+    }
+    res.status(200).send('Added to wishlist');
+  } catch (error) {
+    res.status(500).send('Error adding to wishlist');
+  }
+}
+const DeleteWish = async (req, res, next) => {
+  const { email, trekName } = req.params;
+
+  try {
+    const user = await User.findOne({ email: email });
+    const trek = await Trek.findOne({ name: trekName });
+    if (!user || !trek) return res.status(404).send('User or Trek not found');
+
+    user.wishlist = user.wishlist.filter(id => id.toString() !== trek._id.toString()); // Remove the trek ID from the wishlist
+    await user.save();
+    res.status(200).send('Removed from wishlist');
+  } catch (error) {
+    res.status(500).send('Error removing from wishlist');
+  }
+}
+module.exports = { signup, signin, googleAuth, passwordLink, forgotPassword, GetUserDetails, UpdateUserDetails,SaveWish,DeleteWish };
   
  

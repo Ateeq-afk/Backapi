@@ -426,7 +426,79 @@ const getTreksGroupTour = async (req, res, next) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
-// Long Tour
+const getGroupTourSort = async (req, res, next) => {
+  const { sort } = req.query; // Assuming the sort criterion is passed as a query parameter
+
+  let sortOptions = {};
+  let findQuery = { maintype: "grouptour" }; // Initialize findQuery with the default filter
+
+  switch(sort) {
+    case 'priceLowToHigh':
+      sortOptions = { fromamount: 1 };
+      break;
+    case 'priceHighToLow':
+      sortOptions = { fromamount: -1 };
+      break;
+    case 'newestFirst':
+      sortOptions = { createdAt: -1 };
+      break;
+    case 'mostPopular':
+      sortOptions = { popularityScore: -1 };
+      break;
+    case 'upcoming':
+      // Add to findQuery for filtering, assuming Upcoming is a Boolean field
+      findQuery.Upcoming = true;
+      break;
+    case 'recommended':
+      // Add to findQuery for filtering, assuming recommendation is a Boolean field
+      findQuery.recommendation = true;
+      break;
+  }
+
+  try {
+    const tours = await Trek.find(findQuery).sort(sortOptions); // Apply both findQuery and sortOptions
+    res.json(tours);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const getLongTourSort = async (req, res, next) => {
+  const { sort } = req.query; // Assuming the sort criterion is passed as a query parameter
+
+  let sortOptions = {};
+  let findQuery = { maintype: "longtour" }; // Initialize findQuery with the default filter
+
+  switch(sort) {
+    case 'priceLowToHigh':
+      sortOptions = { fromamount: 1 };
+      break;
+    case 'priceHighToLow':
+      sortOptions = { fromamount: -1 };
+      break;
+    case 'newestFirst':
+      sortOptions = { createdAt: -1 };
+      break;
+    case 'mostPopular':
+      sortOptions = { popularityScore: -1 };
+      break;
+    case 'upcoming':
+      // Add to findQuery for filtering, assuming Upcoming is a Boolean field
+      findQuery.Upcoming = true;
+      break;
+    case 'recommended':
+      // Add to findQuery for filtering, assuming recommendation is a Boolean field
+      findQuery.recommendation = true;
+      break;
+  }
+
+  try {
+    const tours = await Trek.find(findQuery).sort(sortOptions); // Apply both findQuery and sortOptions
+    res.json(tours);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
  const getTreksLongTour = async (req, res, next) => {
   try {
     const trekslong = await Trek.find({ maintype: "longtour" });
@@ -581,5 +653,7 @@ module.exports = {
     getTreksKeralaTrek,
     getTreksTNTrek,
     getTreksSpecialTrek,
-    getEventCounts
+    getEventCounts,
+    getGroupTourSort,
+    getLongTourSort
 }

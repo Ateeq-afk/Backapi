@@ -1,9 +1,148 @@
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const Book = require('../Model/Book.js');
+const Trek = require('../Model/Trek.js');
 const razorpay = require('../Middleware/razorpay.js');
 
 // Initiate payment
+const getBookingsByEmail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    
+    // Fetch successful bookings for the given email
+    const bookings = await Book.find({ email, status: "successful" });
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ error: "Failed to fetch bookings" });
+  }
+};
+
+async function calculatePopularity(eventName) {
+  const bookings = await Book.find({ eventName, status: "successful" }).lean();
+  let totalTickets = 0;
+  bookings.forEach(booking => totalTickets += parseInt(booking.tickets, 10));
+  return totalTickets;
+}
+async function getUserPreferences(email) {
+  const bookings = await Book.find({ email, status: "successful" });
+  const preferences = {
+    bookedEventNames: [],
+    trektypenames: [],
+    servicenames: [],
+  };
+  for (const booking of bookings) {
+    const trek = await Trek.findOne({ name: booking.eventName }).lean();
+    if (trek) {
+      const { name, trektypename, servicename } = trek;
+      preferences.bookedEventNames.push(name.toLowerCase()); // Track event names in lowercase for case-insensitive comparison
+      if (trektypename && !preferences.trektypenames.includes(trektypename)) preferences.trektypenames.push(trektypename);
+      if (servicename && !preferences.servicenames.includes(servicename)) preferences.servicenames.push(servicename);
+    }
+  }
+
+  return preferences;
+}
+
+async function getRecommendationsForType(email, eventType) {
+  const userPreferences = await getUserPreferences(email);
+  let commonKeywords = extractCommonKeywords(userPreferences.bookedEventNames);
+
+  let query = {
+    maintype: { $in: eventType },
+    $or: [
+      { trektypename: { $in: userPreferences.trektypenames } },
+      { servicename: { $in: userPreferences.servicenames } },
+    ],
+    name: { $not: { $in: userPreferences.bookedEventNames.map(name => name.toLowerCase()) } }
+  };
+  console.log("Query:", query);
+  let recommendations = await Trek.find(query).lean();
+  // console.log("Recommendations before filtering:", recommendations);
+  recommendations = recommendations.filter(recommendation => 
+    !userPreferences.bookedEventNames.includes(recommendation.name.toLowerCase())
+);
+  for (let recommendation of recommendations) {
+    recommendation.popularity = await calculatePopularity(recommendation.name);
+    recommendation.keywordMatch = calculateKeywordMatchScore(recommendation.name, commonKeywords);
+  }
+  let filteredRecommendations = recommendations.filter(recommendation => recommendation.keywordMatch >= 4);
+
+  // If filtered recommendations are too few, consider including events with lower match scores
+  if (recommendations.length === 0) {
+    let popularQuery = { maintype: { $in: eventType } };
+    let popularRecommendations = await Trek.find(popularQuery).lean();
+
+    // Populate popularity for sorting
+    for (let recommendation of popularRecommendations) {
+      recommendation.popularity = await calculatePopularity(recommendation.name);
+    }
+
+    // Sort by popularity to get the most popular options
+    popularRecommendations.sort((a, b) => b.popularity - a.popularity);
+
+    // Consider the top N popular recommendations as a fallback
+    return recommendations = popularRecommendations.slice(0, 8);
+  }else if (filteredRecommendations.length < 4) {
+   return filteredRecommendations = recommendations.slice(0, 8); // Example fallback strategy
+  }else{
+  // Sort by keyword match score, then by popularity, then by name
+  filteredRecommendations.sort((a, b) => {
+    if (b.keywordMatch !== a.keywordMatch) return b.keywordMatch - a.keywordMatch;
+    if (b.popularity !== a.popularity) return b.popularity - a.popularity;
+    return a.name.localeCompare(b.name);
+  });
+
+  return filteredRecommendations.slice(0, 8);
+}
+}
+
+// Extract keywords from event names, ignoring common stopwords
+function extractCommonKeywords(bookedEventNames) {
+  // You may need a list of stopwords to filter out common but unimportant words
+  let stopwords = ["the", "and", "getaway", "tour", "trek","weekend","backpacking","hill","peak"]; // Example stopwords, expand this list based on your needs
+  let keywords = bookedEventNames.flatMap(name =>
+    name.toLowerCase().split(/\s+/).filter(word => !stopwords.includes(word))
+  );
+  return [...new Set(keywords)]; // Remove duplicates
+}
+
+// Calculate keyword match score based on the number of common keywords
+function calculateKeywordMatchScore(eventName, commonKeywords) {
+  let nameKeywords = eventName.toLowerCase().split(/\s+/);
+  let matchScore = nameKeywords.reduce((score, keyword) => {
+    if (commonKeywords.includes(keyword)) return score + 1;
+    return score;
+  }, 0);
+  return matchScore;
+}
+
+
+const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tntrek','specialtrek'];
+
+const getTrekRecommendations = async (req, res) => {
+    try {
+      const email = req.params.email;
+        const recommendations = await getRecommendationsForType(email, trekTypes);
+        res.json(recommendations);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error getting trek recommendations');
+    }
+};
+const tourTypes = ['grouptour', 'longtour', 'international', 'northindiatour','private','specialtour'];
+
+const getTourRecommendations = async (req, res) => {
+    try {
+      const email = req.params.email;
+        const recommendations = await getRecommendationsForType(email, tourTypes);
+        res.json(recommendations);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error getting tour recommendations');
+    }
+};
 const initiatepayment = async (req, res) => {
     // Create an order with Razorpay
     const amountInPaise = Math.round(parseFloat(req.body.amount) * 100);
@@ -413,8 +552,33 @@ const sendConfirmationEmail = async (paymentDetails) => {
       res.status(500).json({ error: "Could not retrieve today's bookings" });
     }
   };
+  getBookingWithTour = async(req,res) =>{
+    const { bookingId } = req.params;
+    try {
+        // Find booking details
+        const booking = await Book.findOne({ bookingId });
+        if (!booking) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+
+        // Find tour details by tour name
+        const tour = await Trek.findOne({ name: booking.eventName });
+        if (!tour) {
+            return res.status(404).json({ error: "Tour details not found" });
+        }
+
+        // Combine booking and tour details and send response
+        res.json({ booking, tour });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+  }
   module.exports = {
     initiatepayment,
     webhook,
-    getTodaysBookings
+    getTodaysBookings,
+    getTrekRecommendations,
+    getTourRecommendations,
+    getBookingsByEmail,
+    getBookingWithTour
   };

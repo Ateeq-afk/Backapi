@@ -3,29 +3,52 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true
     },
     email: {
       type: String,
-      required: true,
       unique: true
     },
     phone: {
       type: Number,
     },
+    preferredDestinations:{
+      type: String,
+    },
+    travelertype:{
+      type: String,
+    },
     password: {
-        type: String,
+      type: String,
     },
     image: {
-        type: String,
+      type: String,
     },
     verifytoken:{
       type: String,
-  },
+    },
     fromGoogle: {
       type: Boolean,
       default: false,
     },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    zipCode: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    wishlist: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Trek'
+    }],    
   },
   { timestamps: true }
 );

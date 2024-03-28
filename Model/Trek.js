@@ -127,8 +127,21 @@ rlink: {
         type: Number,
       }
     }],
+    popularityScore: {
+      type: Number,
+      default: 0, // Example field for sorting by popularity
+    },
+   // Assuming this is for upcoming tours/treks
+    recommendation: {
+      type: Boolean,
+      default: false,// Example field for sorting by recommendations
+    },
+    Upcoming: {
+      type: Boolean,
+      default: false, // Default value indicating not upcoming
+    },
   },
-
+ 
   { timestamps: true }
 );
 
